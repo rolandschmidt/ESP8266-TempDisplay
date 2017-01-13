@@ -41,25 +41,28 @@ void u8g2_Roland(void) {
 
 void u8g2_HTU(void) {
   //u8g2.clearDisplay();
-  Serial.println("StarteHTU");
+  //Serial.println("StarteHTU");
   //Serial.print("Temp: "); Serial.print(htu.readTemperature());
-  Serial.print("Temp: "); Serial.print(myHumidity.readTemperature());
-  //Serial.print("HTU auf Display");
-  //float temp = htu.readTemperature();
+  //Serial.print("Temp: "); Serial.print(myHumidity.readTemperature());
   float temp = myHumidity.readTemperature();
-  //txt = "Hallo Conny";
+  float humi = myHumidity.readHumidity();
+  
   delay(300);
   //char buf[100];
   //sprintf(buf, "%f", temp);
   //sprintf(txt, "%f", temp);
-  String newData;
-  char buffer[20];
-  String txt2 = String(temp);        
-  txt2.toCharArray(buffer, 20);
+  //String newData;
+  char buffer1[20];
+  char buffer2[20];
+  String txt1 = String(temp);        
+  txt1.toCharArray(buffer1, 20);
+  String txt2 = String(humi);
+  txt2.toCharArray(buffer2, 20);
     //u8g2.begin();
   u8g2.clearBuffer();          // clear the internal memory
   u8g2.setFont(u8g2_font_ncenB14_tr);
-  u8g2.drawStr(0,20,buffer);
+  u8g2.drawStr(0,20,buffer1);
+  u8g2.drawStr(0,40,buffer2);
 }
 
 uint8_t draw_state = 0;
@@ -93,6 +96,7 @@ void setup() {
   u8g2.clearBuffer();          // clear the internal memory
   u8g2.setFont(u8g2_font_ncenB14_tr); // choose a suitable font
   u8g2.drawStr(0,20,"Roland");
+  u8g2.drawStr(5,40,"test");
   u8g2.sendBuffer();
   delay(1000);
 }
